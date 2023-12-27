@@ -1,0 +1,16 @@
+<!-- index.html -->
+<!-- fortune.html -->
+{% extends 'fortune_teller/base_generic.html' %}
+
+{% block content %}
+    <div class="fortune-container">
+        {% if fortune %}
+            <h4>Your Fortune:</h4>
+            <p>{{ fortune.text }}</p>
+        {% else %}
+            <h4>No fortunes available for you right now.</h4>
+            <h5>Try again later.</h5>
+        {% endif %}
+        <button onclick="window.location.reload();">Get Another Fortune</button>
+    </div>
+{% endblock %}

@@ -1,0 +1,17 @@
+<!-- header.html -->
+{% load static %}
+
+<header>
+    <h1>Fortune Teller App</h1>
+    <img src="{% static 'images/fortune_teller.jpg' %}" id="fortune_teller_img", alt="Fortune Teller">
+    <div class="login-button">
+        {% if user.is_authenticated %}
+            <a href="{% url 'add_fortune' %}">Create your own fortune</a> <!-- Add fortune button -->
+            <p>Welcome, {{ user.username }}!</p>
+            <a href="{% url 'logout' %}">Logout</a>
+        {% else %}
+            <a href="{% url 'login' %}">Login</a>
+            <a href="{% url 'register' %}">Register</a>
+        {% endif %}
+    </div>
+</header>

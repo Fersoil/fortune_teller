@@ -1,0 +1,35 @@
+<!-- login.html -->
+{% extends 'fortune_teller/account/account_generic.html' %}
+
+{% block title %} Login {% endblock %}
+
+
+{% block content %}
+  <h2>Login</h2>
+  <form method="post">
+    {% csrf_token %}
+    <div>
+      <label for="id_username">Username:</label>
+      <input type="text" name="username" id="id_username" value="{{ form.username.value }}">
+      {% for error in form.username.errors %}
+        <span class="error">{{ error }}</span>
+      {% endfor %}
+    </div>
+
+    <div>
+      <label for="id_password">Password:</label>
+      <input type="password" name="password" id="id_password">
+      {% for error in form.password.errors %}
+        <span class="error">{{ error }}</span>
+      {% endfor %}
+    </div>
+    
+
+    <button type="submit">Login</button>
+  </form>
+  <a href="{% url 'password_reset' %}" style="float:right;font-size:12px;">Forgot password?</a>
+  <div class="sign-up">
+    Don't have an account? <a href="{% url 'register' %}">Create One</a>
+  </div>
+
+{% endblock %}

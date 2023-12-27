@@ -1,0 +1,22 @@
+<!-- base_generic.html -->
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Fortune Teller App{% endblock %}</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    {% include 'fortune_teller/header.html' %}
+    {% include 'fortune_teller/messages.html' %}
+    <div class="container"> 
+        {% block content %}
+        <!-- Content goes here -->
+        {% endblock %}
+    </div>
+    {% include 'fortune_teller/footer.html' %}
+
+</body>
+</html>

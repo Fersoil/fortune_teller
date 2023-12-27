@@ -1,0 +1,11 @@
+<!-- add_fortune.html -->
+{% extends 'fortune_teller/base_generic.html' %}
+
+{% block content %}
+  <h2>Add Your Fortune</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Submit Fortune</button>
+  </form>
+{% endblock %}
