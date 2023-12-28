@@ -1,7 +1,10 @@
 {% extends 'fortune_teller/base_generic.html' %}
 
 {% block content %}
-<div class="account-box">
-    
-</div>
-{% endblock %}
+    <div class="account-box">
+        {% block account_content %}
+            
+        {% endblock %}
+    </div>
+{% endblock content %}
+

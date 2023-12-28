@@ -1,0 +1,267 @@
+$text_color: #f4f4f4;
+$light_text_color: #f4f4f4;
+$dark_text_color: #433d3d;
+$medium_text_color: #777;
+
+$footer_height: 6em;
+
+$goldish: #ffd700;
+$error_color: red;
+
+$font-family: Lato, sans-serif;
+$base_background_color: #0a0a0a;
+$dark_background_color: #333;
+$light_background_color: #f4f4f4;
+$header_footer_background_color: #333;
+$form_background_color: #0a0a0a;
+$button_color: #1e6b0a;
+$dark_accent: #0056b3;
+$background_hover_color: #555555;
+$light_accent: #007b9e;
+
+body {
+    font-family: $font-family;
+    background-color: $base_background-color;
+    color: $text_color;
+    text-align: center;
+    position: relative;
+	margin: 0;
+
+	min-height: 100vh;
+}
+
+
+
+.container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	padding-bottom: $footer_height;
+	
+}
+
+
+.fortune-container {
+    background-color: $form_background_color;
+    border-radius: 8px;
+    padding: 30px;
+    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+    display: inline-block;
+    margin-top: 50px;
+    
+}
+
+.fortune-container 
+	p {
+        font-size: 24px;
+        font-weight: bold;
+        color: $goldish;
+        margin-bottom: 30px;
+    }
+
+.account-box, .fortune-box, .fortune-container{
+	
+	min-height: 10em;
+	max-width: 30em;
+    width: 100%;
+
+    padding: 2em 3em;
+	margin: 2em;
+    background-color: $form_background_color;
+	box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+
+	
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+
+	margin-bottom: 3em;
+}
+
+form {
+	margin: 0;
+	display: flex;
+	flex-direction: column; 
+	align-items: center;
+	justify-content: center;
+
+
+    fieldset {
+        position: relative;
+
+        margin-bottom: 1em;
+        border: none;
+        padding: 0;
+
+        input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1em;
+            transition: border-color 0.3s ease;
+            border: 1px solid #555;
+            background-color: $dark_text_color;
+            border-radius: 4px;
+            font-size: 16px;
+            color: $text_color;
+            outline: none;
+
+            &:focus {
+                // border-color: $border-color_1;
+                outline: none;
+                + {
+                    label {
+                        top: -6px;
+                        font-size: 12px;
+                        color: $dark_text_color;
+                        background-color: $form_background_color;
+                        padding: 0 4px;
+                        border-radius: 4px;
+                        left: 8px;
+                    }
+                }
+            }
+            &:not(:placeholder-shown) {
+                + {
+                    label {
+                        top: -6px;
+                        font-size: 12px;
+                        color: $dark_text_color;
+                        background-color: $form_background_color;
+                        padding: 0 4px;
+                        border-radius: 4px;
+                        left: 8px;
+                    }
+                }
+            }
+        }
+        label {
+            position: absolute;
+            left: 12px;
+            top: 12px;
+            font-size: 14px;
+            color: $medium_text_color;
+            transition:
+                top 0.3s ease,
+                font-size 0.3s ease,
+                color 0.3s ease;
+        }
+    }
+    h2 {
+        text-align: center;
+        margin-top: 0;
+        margin-bottom: 30px;
+        color: $dark_text_color;
+    }
+    button[type="submit"] {
+        display: block;
+
+		min-width: 5em;
+        padding: 10px;
+        background-color: $button_color;
+        color: $light_text_color;
+        border: none;
+        border-radius: 4px;
+
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+
+        &:hover {
+            background-color: $dark_accent;
+        }
+    }
+    p {
+        color: $light_text_color;
+    }
+}
+
+
+button {
+	padding: 12px 18px;
+	background-color: $dark_background_color;
+	color: $light_text_color;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	font-size: 16px;
+	font-weight: bold;
+	text-transform: uppercase;
+	transition: background-color 0.3s ease;
+
+	&:hover {
+		background-color: $background_hover_color;
+	}
+}
+
+
+a {
+	color: $light_text_color;
+	text-decoration: underline;
+
+	&:hover {
+		color: $light_accent;
+	}
+}
+
+
+footer {
+    background-color: $header_footer_background_color;
+    color: $light_text_color;
+    text-align: center;
+    padding: 20px 0;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+	height: $footer_height;
+
+
+    a {
+        color: $light_text_color;
+        text-decoration: none;
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}
+#fortune_teller_img {
+    width: 100%;
+    max-width: 40px;
+    margin-bottom: 20px;
+}
+header {
+    background-color: $header_footer_background_color;
+    color: $light_text_color;
+    text-align: left;
+    display: flex;
+    position: relative;
+    text-align: center;
+    padding: 1em 2em;
+    justify-content: space-between;
+	margin: 0;
+
+    h1 {
+        margin: 0;
+        font-size: 24px;
+    }
+}
+
+
+.login-button {
+    p, a{
+        margin: 0;
+        padding: 8px 12px;
+        background-color: $light_accent;
+        color: $light_text_color;
+        text-decoration: none;
+        border-radius: 4px;
+        display: inline-block;
+    }
+}
+
+
+.error {
+    color: $error_color;
+    font-size: 0.8em;
+}

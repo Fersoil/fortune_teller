@@ -2,10 +2,29 @@
 {% extends 'fortune_teller/base_generic.html' %}
 
 {% block content %}
-  <h2>Add Your Fortune</h2>
+
+<div class="fortune-box">
+
+  <h2>Add Your Own Fortune!</h2>
   <form method="post">
     {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Submit Fortune</button>
+    {% for field in form %}
+
+    <fieldset>
+      {% if field.errors %}
+        <ul class="errorlist">
+          {% for error in field.errors %}
+            <li>{{ error }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+      {{ field }} 
+      {{ field.label_tag }}
+    </fieldset>
+
+  {% endfor %}    
+  <button type="submit">Submit Fortune</button>
   </form>
+
+</div>
 {% endblock %}

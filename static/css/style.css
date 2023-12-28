@@ -3,70 +3,198 @@ body {
     background-color: #0a0a0a; /* Dark background */
     color: #f4f4f4; /* Light text for contrast */
     text-align: center;
+
+    padding: 1em;
+    margin-bottom: 10em;
+    position: relative;
+}
+body {
+    background-color: #333;
+    font-family: Arial, sans-serif;
+    color: #fff;
     padding: 20px;
-    margin-bottom: 200px;
 }
 
+form {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
+  
+  form fieldset {
+      position: relative;
+      margin-bottom: 20px;
+      border: none;
+      padding: 0;
+  }
+  
+  form {
+    max-width: 500px;
+    width: 100%;
+    padding: 50px 30px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  }
+  form h2 {
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 30px;
+    color: #333;
+  }
+  form fieldset input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+    
+    border: 1px solid #555;
+    background-color: #222;
+    border-radius: 4px;
+    font-size: 16px;
+    color: #fff;
+    outline: none;
+  }
+  form fieldset label {
+    position: absolute;
+    left: 12px;
+    top: 12px;
+    font-size: 14px;
+    color: #777;
+    transition: top 0.3s ease, font-size 0.3s ease, color 0.3s ease;
+  }
+  form fieldset input:focus {
+    border-color: #007bff;
+    outline: none;
+  }
+  form fieldset input:focus + label,
+  form fieldset input:not(:placeholder-shown) + label {
+    top: -6px;
+    font-size: 12px;
+    color: #007bff;
+    background-color: #ffffff;
+    padding: 0 4px;
+    border-radius: 4px;
+    left: 8px;
+  }
+
+  form button[type="submit"] {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  form button[type="submit"]:hover {
+    background-color: #0056b3;
+  }
+  
+
+
+form fieldset {
+    position: relative;
+    margin-bottom: 20px;
+    border: none; /* Remove default fieldset border */
+    padding: 0; /* Remove default padding */
+}
+
+
+/* 
+form input[type="text"]:focus, form input[type="password"]:focus,
+form input[type="text"]:not(:placeholder-shown), form input[type="password"]:not(:placeholder-shown) {
+    border-color: #007BFF;
+} */
+
+/* form input[type="text"]:focus + label, form input[type="password"]:focus + label {
+    top: -5px;
+    left: 10px;
+    font-size: 12px;
+    color: #007BFF;
+    background: #333;
+    padding: 0 5px;
+    transition: top 0.3s ease, font-size 0.3s ease, color 0.3s ease;
+    z-index: 10;
+} */
+
+/* form label {
+    position: absolute;
+    top: 12px;
+    left: 10px;
+    font-size: 16px;
+    color: #888;
+    transition: top 0.3s ease, font-size 0.3s ease, color 0.3s ease;
+    pointer-events: none;
+} */
+
+
 .fortune-container {
-    background-color: #1a1a1a; /* Slightly lighter than body for depth */
+    background-color: #1a1a1a; 
     border-radius: 8px;
     padding: 30px;
-    box-shadow: 0 4px 8px rgba(255,255,255,0.1); /* Subtle glow effect */
+    box-shadow: 0 4px 8px rgba(255,255,255,0.1); 
     display: inline-block;
     margin-top: 50px;
 }
 
 .fortune-container p {
     font-size: 24px;
-    font-weight: bold; /* Bolder text */
-    color: #FFD700; /* Gold color for a majestic feel */
+    font-weight: bold; 
+    color: #FFD700; 
     margin-bottom: 30px;
 }
 
 button, a {
     padding: 12px 18px;
-    background-color: #333333; /* Dark buttons */
+    background-color: #333333; 
     color: #ffffff;
     border: none;
     border-radius: 4px;
     cursor: pointer;
     font-size: 16px;
-    font-weight: bold; /* Bolder button text */
-    text-transform: uppercase; /* Uppercase text for buttons */
+    font-weight: bold; 
+    text-transform: uppercase; 
     transition: background-color 0.3s ease;
 }
 
 button:hover, a:hover {
-    background-color: #555555; /* Slightly lighter on hover */
+    background-color: #555555; 
 }
 
-/* Additional styling for login/logout links */
 a {
     display: inline-block;
     margin-top: 10px;
     text-decoration: none;
 }
 
-/* Styling for the login form */
-form {
-    background-color: #1c1c1c; /* Dark background for the form */
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-}
 
 form p {
-    color: #fff; /* White text for form */
+    color: #fff; 
 }
 
-/* style.css */
 footer {
-    background-color: #333; /* Dark background for the footer */
+    background-color: #333; 
     color: #fff;
     text-align: center;
     padding: 20px 0;
+    
+    position: fixed; 
+    
+    bottom: 0;
     width: 100%;
 }
+
 
 footer a {
     color: #fff;
@@ -82,15 +210,21 @@ footer a:hover {
     margin-bottom: 20px;
 }
 
-/* style.css */
-header {
+ header {
     background-color: #333; /* Dark background for the header */
     color: #fff;
     padding: 10px 20px;
     text-align: left;
     display: flex;
+}
+
+header{
+    position: relative;
+    color: white;
+    text-align: center;
+    background-color: #333; /* Dark background for the header */
+    padding: 2em;
     justify-content: space-between;
-    align-items: center;
 }
 
 header h1 {
@@ -111,4 +245,4 @@ header h1 {
 .error {
     color: red;
     font-size: 0.8em;
-}
+} 
