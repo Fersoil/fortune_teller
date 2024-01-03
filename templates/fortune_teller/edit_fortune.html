@@ -1,0 +1,14 @@
+<!-- edit_fortune.html -->
+{% extends 'fortune_teller/base_generic.html' %}
+
+{% block content %}
+  <div class="fortune-box">
+  <h2>Edit Fortune</h2>
+  Future is sometimes unpredictable.
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Save Changes</button>
+  </form>
+  </div>
+{% endblock %}

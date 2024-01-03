@@ -1,6 +1,8 @@
 import logging
 from django.shortcuts import render
 from .models import Fortune, UserProfile
+from .forms import UserInfoForm
+
 import random
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
@@ -23,6 +25,8 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes
 from django.template.loader import render_to_string
+
+from .forms import UserInfoForm
 
 
 logger = logging.getLogger(__name__)
@@ -106,5 +110,25 @@ def add_fortune(request):
         form = FortuneForm()
 
     return render(request, 'fortune_teller/add_fortune.html', {'form': form})
+
+
+@login_required
+def view_fortunes(request):
+    # Fetch fortunes associated with the user
+    user_fortunes = Fortune.objects.filter(user=request.user)
+    return render(request, 'fortune_teller/view_fortunes.html', {'fortunes': user_fortunes})
+
+
+@login_required
+def edit_fortune(request, fortune_id):
+    fortune = get_object_or_404(Fortune, pk=fortune_id, user=request.user)  # Ensure the user owns the fortune
+    if request.method == 'POST':
+        form = FortuneForm(request.POST, instance=fortune)
+        if form.is_valid():
+            form.save()
+            return redirect('user_fortunes')  # Redirect to the fortunes list
+    else:
+        form = FortuneForm(instance=fortune)
+    return render(request, 'fortune_teller/edit_fortune.html', {'form': form})
 
 

@@ -3,10 +3,10 @@
 {% extends 'fortune_teller/base_generic.html' %}
 
 {% block content %}
-    <div class="fortune-container">
+    <div class="fortune-box">
         {% if fortune %}
             <h4>Your Fortune:</h4>
-            <p>{{ fortune.text }}</p>
+            <p class="glittery-gold">{{ fortune.text }}</p>
         {% else %}
             <h4>No fortunes available for you right now.</h4>
             <h5>Try again later.</h5>

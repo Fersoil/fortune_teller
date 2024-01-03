@@ -9,15 +9,18 @@ $goldish: #ffd700;
 $error_color: red;
 
 $font-family: Lato, sans-serif;
-$base_background_color: #0a0a0a;
+$base_background_color: #3d0139;
 $dark_background_color: #333;
 $light_background_color: #f4f4f4;
 $header_footer_background_color: #333;
-$form_background_color: #0a0a0a;
-$button_color: #1e6b0a;
+$form_background_color: #d82b82;
+$button_color: #952a97;
 $dark_accent: #0056b3;
 $background_hover_color: #555555;
-$light_accent: #007b9e;
+$light_accent: #bb4aca;
+
+$breakpoint-mobile: 768px;
+
 
 body {
     font-family: $font-family;
@@ -42,7 +45,7 @@ body {
 }
 
 
-.fortune-container {
+.fortune-container,  .fortune-box {
     background-color: $form_background_color;
     border-radius: 8px;
     padding: 30px;
@@ -52,11 +55,11 @@ body {
     
 }
 
-.fortune-container 
+.fortune-container, .fortune-box
 	p {
         font-size: 24px;
         font-weight: bold;
-        color: $goldish;
+        // color: $goldish;
         margin-bottom: 30px;
     }
 
@@ -169,7 +172,7 @@ form {
         transition: background-color 0.3s ease;
 
         &:hover {
-            background-color: $dark_accent;
+            background-color: $light_accent;
         }
     }
     p {
@@ -180,7 +183,7 @@ form {
 
 button {
 	padding: 12px 18px;
-	background-color: $dark_background_color;
+	background-color: $button_color;
 	color: $light_text_color;
 	border: none;
 	border-radius: 4px;
@@ -191,7 +194,7 @@ button {
 	transition: background-color 0.3s ease;
 
 	&:hover {
-		background-color: $background_hover_color;
+		background-color: $light_accent;
 	}
 }
 
@@ -264,4 +267,81 @@ header {
 .error {
     color: $error_color;
     font-size: 0.8em;
+}
+
+
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    color: #000;
+    background-color: #f4f4f4;
+}
+
+
+
+@media (max-width: $breakpoint-mobile) {
+    footer {
+        min-height: 2em;
+    }
+
+    .account-box {
+        max-width: 80em;
+        background-color: $form_background_color;
+    }
+}
+
+.glittery-gold {
+    background: linear-gradient(45deg, #ffd700, #ffffff, #ffd700, #ffffff);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: glitter 3s linear infinite;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+@keyframes glitter {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+
+
+
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed;
+    z-index: 2; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.4); /* Dimmed background */
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
 }
