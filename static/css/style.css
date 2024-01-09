@@ -50,7 +50,23 @@ form {
     margin-bottom: 1em;
     border: none;
     padding: 0; }
-    form fieldset input {
+    form fieldset select {
+      width: 100%;
+      padding: 10px;
+      /* Some padding */
+      margin: 8px 0;
+      /* Margin for some space around the select */
+      display: inline-block;
+      /* Making sure it's inline-block */
+      border: 1px solid #ccc;
+      /* A subtle border */
+      border-radius: 4px;
+      /* Rounded borders */
+      box-sizing: border-box;
+      /* Box sizing to avoid size issues */
+      transition: border-color 0.3s ease-in-out;
+      /* Smooth transition for focus */ }
+    form fieldset input, form fieldset select, form fieldset textarea {
       width: 100%;
       padding: 10px;
       border: 1px solid #ccc;
@@ -63,9 +79,9 @@ form {
       font-size: 16px;
       color: #f4f4f4;
       outline: none; }
-      form fieldset input:focus {
+      form fieldset input:focus, form fieldset select:focus, form fieldset textarea:focus {
         outline: none; }
-        form fieldset input:focus + label {
+        form fieldset input:focus + label, form fieldset select:focus + label, form fieldset textarea:focus + label {
           top: -6px;
           font-size: 12px;
           color: #433d3d;
@@ -73,7 +89,7 @@ form {
           padding: 0 4px;
           border-radius: 4px;
           left: 8px; }
-      form fieldset input:not(:placeholder-shown) + label {
+      form fieldset input:not(:placeholder-shown) + label, form fieldset select:not(:placeholder-shown) + label, form fieldset textarea:not(:placeholder-shown) + label {
         top: -6px;
         font-size: 12px;
         color: #433d3d;
@@ -156,7 +172,6 @@ header {
   display: flex;
   position: relative;
   text-align: center;
-  padding: 1em 2em;
   justify-content: space-between;
   margin: 0; }
   header h1 {
@@ -181,13 +196,47 @@ table {
   border-collapse: collapse; }
 
 th, td {
-  border: 1px solid #ddd;
+  border: 1px solid #0056b3;
   padding: 8px;
   text-align: left; }
 
 th {
-  color: #000;
-  background-color: #f4f4f4; }
+  color: #f4f4f4;
+  background-color: #333; }
+
+nav {
+  width: 100%; }
+  nav ul {
+    position: -webkit-sticky;
+    /* Safari */
+    position: sticky;
+    top: 0;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    width: 100%; }
+  nav li {
+    display: inline;
+    border-left: 1px solid #f4f4f4; }
+    nav li a {
+      display: block;
+      color: #f4f4f4;
+      text-align: center;
+      padding: 1.2em 2em;
+      text-decoration: none;
+      font-size: 1em; }
+    nav li a:hover {
+      background-color: #555555; }
+  nav li:not(:first-child) {
+    float: right; }
+  nav li:first-child {
+    float: left;
+    border: none;
+    font-weight: bold; }
+
+nav > *:not(:first-child) {
+  float: right; }
 
 @media (max-width: 768px) {
   footer {
@@ -202,9 +251,7 @@ th {
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  animation: glitter 3s linear infinite;
-  font-size: 24px;
-  font-weight: bold; }
+  animation: glitter 3s linear infinite; }
 
 @keyframes glitter {
   0% {
@@ -214,28 +261,29 @@ th {
   100% {
     background-position: 0% 50%; } }
 
-.modal {
-  display: none;
-  /* Hidden by default */
+#cookieConsentBanner {
+  background-color: rgba(20, 20, 20, 0.9);
+  color: white;
+  padding: 10px 20px;
   position: fixed;
-  z-index: 2;
-  /* Sit on top */
+  bottom: 0;
   left: 0;
-  top: 0;
   width: 100%;
-  height: 100%;
-  overflow: auto;
-  /* Enable scroll if needed */
-  background-color: rgba(0, 0, 0, 0.4);
-  /* Dimmed background */ }
+  text-align: center;
+  display: none;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: #f4f4f4;
+  padding: 10px;
+  text-align: center; }
 
-.modal-content {
-  background-color: #fefefe;
-  margin: 15% auto;
-  /* 15% from the top and centered */
-  padding: 20px;
-  border: 1px solid #888;
-  width: 80%;
-  /* Could be more or less, depending on screen size */ }
+#cookieConsentBanner button {
+  color: white;
+  background-color: green;
+  border: none;
+  padding: 5px 10px;
+  margin: 10px;
+  cursor: pointer; }
 
 /*# sourceMappingURL=style.css.map */

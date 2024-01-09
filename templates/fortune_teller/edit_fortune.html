@@ -4,11 +4,26 @@
 {% block content %}
   <div class="fortune-box">
   <h2>Edit Fortune</h2>
-  Future is sometimes unpredictable.
+  <h5>Future is sometimes unpredictable.  <br> Everything may change</h5>
+   
   <form method="post">
     {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Save Changes</button>
+    {% for field in form %}
+
+    <fieldset>
+      {% if field.errors %}
+        <ul class="errorlist">
+          {% for error in field.errors %}
+            <li>{{ error }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+      {{ field }} 
+      {{ field.label_tag }}
+    </fieldset>
+
+  {% endfor %}    
+  <button type="submit">Change future.</button>
   </form>
   </div>
 {% endblock %}

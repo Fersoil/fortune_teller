@@ -1,0 +1,17 @@
+
+<!-- view_fortunes.html -->
+{% extends 'fortune_teller/base_generic.html' %}
+
+
+{% block content %}
+<div class="account-box">
+    <h1>User Profile</h1>
+    <p>Zodiac sign: {{ zodiac_sign }}</p>
+    <p>Sex: {{ sex }}</p>
+
+    <form action="{% url 'clear_cookies' %}" method="post">
+      {% csrf_token %}
+      <button type="submit">Delete your identity</button>
+  </form>
+</div>
+{% endblock %}

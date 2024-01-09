@@ -14,7 +14,8 @@ urlpatterns = [
     path('accounts/register/done', views.register_done, name="account_activation_sent"),
     path('account/register/<uidb64>/<token>/', views.activate, name='register_activate'),
     path('account/register/done/', views.register_complete, name='register_complete'),
-    
+    path('accounts/info/', views.user_info, name='account_info'),
+
     path('accounts/profile/', views.user_fortunes, name='user_fortunes'),
 
     path('accounts/logout/', auth_views.LogoutView.as_view(next_page='/'), name='logout'),
@@ -23,8 +24,12 @@ urlpatterns = [
     path('accounts/reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(template_name='fortune_teller/account/password_reset_confirm.html'), name='password_reset_confirm'),
     path('accounts/reset/done/', auth_views.PasswordResetCompleteView.as_view(template_name='fortune_teller/account/password_reset_complete.html'), name='password_reset_complete'),
 
+
     path("accounts/", include("django.contrib.auth.urls")),
     path('add_fortune/', views.add_fortune, name='add_fortune'),
     path('fortunes/', views.view_fortunes, name='view_fortunes'),
     path('fortunes/edit/<int:fortune_id>/', views.edit_fortune, name='edit_fortune'),
+
+    path('info/', views.user_info, name='user_info'),
+    path("clear_cookies/", views.clear_cookies, name="clear_cookies"),
 ]

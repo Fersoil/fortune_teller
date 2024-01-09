@@ -5,3 +5,4 @@ from .models import Fortune, UserProfile
 
 
 admin.site.register(Fortune)
+admin.site.register(UserProfile)

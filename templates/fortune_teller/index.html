@@ -5,7 +5,11 @@
 {% block content %}
     <div class="fortune-box">
         {% if fortune %}
+            {% if zodiac_sign  is not None %}
+            <h4> {{ zodiac_sign }}, fortune for you: </h4>
+            {% else %}
             <h4>Your Fortune:</h4>
+            {% endif %}
             <p class="glittery-gold">{{ fortune.text }}</p>
         {% else %}
             <h4>No fortunes available for you right now.</h4>

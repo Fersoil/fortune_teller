@@ -96,7 +96,18 @@ form {
         border: none;
         padding: 0;
 
-        input {
+        select {
+            width: 100%; 
+            padding: 10px; /* Some padding */
+            margin: 8px 0; /* Margin for some space around the select */
+            display: inline-block; /* Making sure it's inline-block */
+            border: 1px solid #ccc; /* A subtle border */
+            border-radius: 4px; /* Rounded borders */
+            box-sizing: border-box; /* Box sizing to avoid size issues */
+            transition: border-color 0.3s ease-in-out; /* Smooth transition for focus */
+        }
+
+        input, select, textarea {
             width: 100%;
             padding: 10px;
             border: 1px solid #ccc;
@@ -139,6 +150,7 @@ form {
                 }
             }
         }
+
         label {
             position: absolute;
             left: 12px;
@@ -219,7 +231,6 @@ footer {
     width: 100%;
 	height: $footer_height;
 
-
     a {
         color: $light_text_color;
         text-decoration: none;
@@ -240,7 +251,7 @@ header {
     display: flex;
     position: relative;
     text-align: center;
-    padding: 1em 2em;
+    // padding: 1em 2em;
     justify-content: space-between;
 	margin: 0;
 
@@ -277,16 +288,72 @@ table {
 }
 
 th, td {
-    border: 1px solid #ddd;
+    border: 1px solid $dark_accent;
     padding: 8px;
     text-align: left;
 }
 
 th {
-    color: #000;
-    background-color: #f4f4f4;
+    color: $light_text_color;
+    background-color: $dark_background_color;
 }
 
+
+nav {
+    
+    width: 100%;
+    
+
+    ul {
+        position: -webkit-sticky; /* Safari */
+        position: sticky;
+        top: 0;
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        width: 100%;
+    }
+
+    
+
+    li {
+        
+        display: inline;
+        border-left: 1px solid $light_background_color;
+
+        a {
+            display: block;
+            color: $light_text_color;
+            text-align: center;
+            padding: 1.2em 2em;
+            text-decoration: none;
+            font-size: 1em;
+
+          }
+          a:hover {
+            background-color: $background_hover_color;
+          }
+          
+      }
+
+      
+      li:not(:first-child) {
+        float: right;
+    }
+      
+
+    li:first-child {
+        float: left;
+        border: none;
+        font-weight: bold;
+      }
+      
+}
+
+nav > *:not(:first-child) {
+    float: right;
+}
 
 
 @media (max-width: $breakpoint-mobile) {
@@ -307,8 +374,6 @@ th {
     background-clip: text;
     color: transparent;
     animation: glitter 3s linear infinite;
-    font-size: 24px;
-    font-weight: bold;
 }
 
 @keyframes glitter {
@@ -324,24 +389,23 @@ th {
 }
 
 
-
-
-.modal {
-    display: none; /* Hidden by default */
+#cookieConsentBanner {
+    background-color: rgba(20,20,20,0.9);
+    color: white;
+    padding: 10px 20px;
     position: fixed;
-    z-index: 2; /* Sit on top */
+    bottom: 0;
     left: 0;
-    top: 0;
     width: 100%;
-    height: 100%;
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgba(0,0,0,0.4); /* Dimmed background */
+    text-align: center;
+    display: none; position: fixed; bottom: 0; width: 100%; background-color: #f4f4f4; padding: 10px; text-align: center;
 }
 
-.modal-content {
-    background-color: #fefefe;
-    margin: 15% auto; /* 15% from the top and centered */
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%; /* Could be more or less, depending on screen size */
+#cookieConsentBanner button {
+    color: white;
+    background-color: green;
+    border: none;
+    padding: 5px 10px;
+    margin: 10px;
+    cursor: pointer;
 }

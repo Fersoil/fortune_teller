@@ -1,0 +1,10 @@
+{% extends 'fortune_teller/account/account_generic.html' %}
+
+{% block content %}
+<div class="account-box">
+    <h1>User Profile</h1>
+    <p>Username: {{ user.username }}</p>
+    <p>Email: {{ user.email }}</p>
+    <!-- Add more user profile information here -->
+</div>
+{% endblock %}

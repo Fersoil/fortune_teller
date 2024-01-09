@@ -46,11 +46,12 @@ class UserProfile(models.Model):
 
         user = models.OneToOneField(User, on_delete=models.CASCADE)
         activation_key = models.UUIDField(default=uuid.uuid4, editable=False)
-        birth_date = models.DateField(null=True, blank=True)
+        # birth_date = models.DateField(null=True, blank=True)
 
         is_verified = models.BooleanField(default=False)
         created_at = models.DateTimeField(auto_now_add=True)
         sex = models.CharField(max_length=1, choices=SEX_CHOICES)  # Sex field
-
+        zodiac_sign = models.CharField(max_length=20, choices=Fortune.ZODIAC_SIGNS, null=True, blank=True)
+        
         def __str__(self):
             return self.user.username

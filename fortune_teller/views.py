@@ -1,43 +1,52 @@
 import logging
-from django.shortcuts import render
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Fortune, UserProfile
-from .forms import UserInfoForm
+from .forms import UserInfoForm, FortuneForm, RegisterForm
 
 import random
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
-from .forms import RegisterForm
 from django.contrib.auth import login, authenticate
 
-from .forms import FortuneForm
 from django.core.mail import send_mail
 
 from django.conf import settings
-from django.shortcuts import get_object_or_404, redirect
-from .models import UserProfile
 from django.contrib.auth.models import User
-from django.core.mail import send_mail
-from django.conf import settings
-from django.shortcuts import render, redirect
-from .forms import RegisterForm
-from .models import UserProfile
 from django.contrib.sites.shortcuts import get_current_site
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes
 from django.template.loader import render_to_string
 
-from .forms import UserInfoForm
 
 
 logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
 
 def index(request):
-    fortunes = Fortune.objects.all()
+    zodiac_sign = None
+    sex = None
+    if request.user.is_authenticated:
+        user_profile = get_object_or_404(UserProfile, user=request.user)
+        
+        logger.info("got user" + user_profile.user.__str__())
+        zodiac_sign = user_profile.zodiac_sign
+        sex = user_profile.sex
+        
+    elif 'zodiac_sign' in request.COOKIES and 'sex' in request.COOKIES:
+        zodiac_sign = request.COOKIES['zodiac_sign']
+        sex = request.COOKIES['sex']
+        logger.error("got user" + zodiac_sign)
+
+    if sex is not None and zodiac_sign is not None:  
+        fortunes = Fortune.objects.filter(zodiac_sign=zodiac_sign, sex=sex)
+    else:
+        logger.info("no user nor zodiac")
+        fortunes = Fortune.objects.all()
+    
     if fortunes:
         random_fortune = random.choice(fortunes)
-        context = {'fortune': random_fortune}
+        context = {'fortune': random_fortune, "sex": sex, "zodiac_sign": zodiac_sign}
     else:
-        context = {'fortune': None}
+        context = {'fortune': None, "sex": sex, "zodiac_sign": zodiac_sign}
 
     return render(request, 'fortune_teller/index.html', context)
 
@@ -97,6 +106,10 @@ def activate(request, uidb64, token):
 def register_complete(request):
     return render(request, "fortune_teller/account/register_complete.html")
 
+
+def account_info(request): # TODO
+    return render(request, 'fortune_teller/account/account_info.html')
+
 @login_required
 def add_fortune(request):
     if request.method == 'POST':
@@ -132,3 +145,44 @@ def edit_fortune(request, fortune_id):
     return render(request, 'fortune_teller/edit_fortune.html', {'form': form})
 
 
+
+
+def user_info(request):
+
+    if 'zodiac_sign' in request.COOKIES and 'sex' in request.COOKIES:
+        zodiac_sign =request.COOKIES["zodiac_sign"]
+        sex = request.COOKIES["sex"]
+
+        context = {"zodiac_sign": zodiac_sign, "sex": sex}
+
+        return render(request, "fortune_teller/user_info.html", context)
+    else:
+        if request.method == 'POST':
+            form = UserInfoForm(request.POST)
+            if form.is_valid():
+                if request.user.is_authenticated:
+                    # Save in user profile for logged-in users
+                    profile = request.user.userprofile
+                    profile.sex = form.cleaned_data['sex']
+                    profile.zodiac_sign = form.cleaned_data['zodiac_sign']
+                    profile.save()
+                else:
+                    # Save in cookies for anonymous users
+                    response = redirect('index')  # Redirect to a desired page
+                    response.set_cookie('sex', form.cleaned_data['sex'])
+                    response.set_cookie('zodiac_sign', form.cleaned_data['zodiac_sign'])
+                    return response
+                return redirect('index')  # Redirect after saving data
+        else:
+            form = UserInfoForm()
+
+        return render(request, 'fortune_teller/set_user_info.html', {'form': form})
+    
+
+def clear_cookies(request):
+    if request.method == 'POST':
+        response = redirect('user_info')  # Redirect to a page of your choice
+        response.delete_cookie('sex')      # Replace with your cookie name
+        response.delete_cookie('zodiac_sign')  # Replace with your cookie name
+        return response
+    return redirect('user_info')  # Redirect if not POST method
