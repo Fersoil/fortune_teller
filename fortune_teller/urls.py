@@ -6,7 +6,6 @@ from django.urls import path, include # new
 
 
 
-
 urlpatterns = [
     path('', views.index, name='index'),
     path('accounts/login/', auth_views.LoginView.as_view(template_name='fortune_teller/account/login.html'), name='login'),
@@ -30,6 +29,11 @@ urlpatterns = [
     path('fortunes/', views.view_fortunes, name='view_fortunes'),
     path('fortunes/edit/<int:fortune_id>/', views.edit_fortune, name='edit_fortune'),
 
+    path('history/', views.history, name='history'),
     path('info/', views.user_info, name='user_info'),
     path("clear_cookies/", views.clear_cookies, name="clear_cookies"),
+    path('fortunes/<int:fortune_id>/', views.view_fortune, name='view_fortune'),
+
+
+
 ]

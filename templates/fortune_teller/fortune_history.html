@@ -1,0 +1,33 @@
+<!-- fortune_history.html -->
+{% extends 'fortune_teller/base_generic.html' %}
+
+{% block content %}
+    <div class="fortune-box">
+        <h2>Your Fortune History</h2>
+  
+        {% if history %}
+          <table>
+            <thead>
+              <tr>
+                <th>Fortune Title</th>
+                <th>Viewed On</th>
+                <th>Details</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for record in history %}
+                <tr>
+                  <td>{{ record.fortune.title }}</td>
+                  <td>{{ record.viewed_on|date:"Y-m-d H:i" }}</td>
+                  <td>
+                    <a href="{% url 'view_fortune' record.fortune.id %}">View</a>
+                  </td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        {% else %}
+          <p>You have not viewed any fortunes yet.</p>
+        {% endif %}
+    </div>
+{% endblock %}

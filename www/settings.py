@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "fortune_teller",
-    'sass_processor'
+    'sass_processor',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -54,6 +55,16 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = "www.urls"
 
+DATABASES = { 
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.environ.get('POSTGRES_NAME'),
+        'USER': os.environ.get('POSTGRES_USER'),
+        'PASSWORD': os.environ.get('POSTGRES_PASSWORD'),
+        'HOST': os.environ.get('POSTGRES_HOST'),
+        'PORT': os.environ.get('POSTGRES_PORT'),
+    }
+}
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
@@ -154,6 +165,18 @@ EMAIL_FILE_PATH = BASE_DIR / "sent_emails"
 
 # #EMAIL_HOST_USER = os.environ.get('EMAIL_USER')
 # #EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASSWORD')
-# EMAIL_HOST_USER = 'fortuneteller@amorki.pl'
-# EMAIL_HOST_PASSWORD = 'Seleryba123'
+
 # EMAIL_USE_TLS = True
+
+
+REST_FRAMEWORK = {
+    # 'DEFAULT_PARSER_CLASSES': [
+    #     'rest_framework_xml.parsers.XMLParser',
+    # ],
+    'DEFAULT_RENDERER_CLASSES': [
+        'rest_framework.renderers.BrowsableAPIRenderer',
+        'rest_framework.renderers.JSONRenderer',        
+        'rest_framework_xml.renderers.XMLRenderer',
+        
+    ]
+}

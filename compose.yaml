@@ -1,0 +1,20 @@
+services:
+  postgress_db:
+    image: postgres
+    volumes:
+      - ./data/db:/var/lib/postgresql/data
+    env_file: .env
+    ports:
+      - "5432:5432"
+    restart: always
+  django:
+    build: ./www
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./lab13:/code
+    ports:
+      - "8000:8000"
+    env_file: .env
+    depends_on:
+      - postgress_db
+    restart: always

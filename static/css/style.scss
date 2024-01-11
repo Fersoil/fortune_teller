@@ -275,12 +275,14 @@ header {
 }
 
 
-.error {
-    color: $error_color;
-    font-size: 0.8em;
+.error-message {
+    display: block
 }
 
-
+.form-errors {
+    margin-bottom: 1em;
+    color: $error_color;
+}
 
 table {
     width: 100%;
@@ -300,7 +302,6 @@ th {
 
 
 nav {
-    
     width: 100%;
     
 
@@ -313,6 +314,10 @@ nav {
         padding: 0;
         overflow: hidden;
         width: 100%;
+        flex-wrap: wrap; 
+        transition: max-height 0.5s ease-in-out;
+
+        // justify-content: space-between; 
     }
 
     
@@ -348,15 +353,41 @@ nav {
         border: none;
         font-weight: bold;
       }
+
+    .navbar-toggle {
+        display: none;
+        cursor: pointer;
+        padding: 1em;
+        font-size: 1.5em;
+        color: $light_text_color;
+
+        @media (max-width: 768px) {
+            display: block;
+        }
+    }
+
+    
+    @media (max-width: 768px) {
+
+        ul {
+            flex-direction: column;
+            display: none;
+        }
+
+        li {
+            border: none;
+            width: 100%;
+        }
+    }
       
 }
 
-nav > *:not(:first-child) {
+nav > ul > *:not(:first-child) {
     float: right;
 }
 
 
-@media (max-width: $breakpoint-mobile) {
+@media screen and (max-width: $breakpoint-mobile) {
     footer {
         min-height: 2em;
     }
@@ -365,6 +396,7 @@ nav > *:not(:first-child) {
         max-width: 80em;
         background-color: $form_background_color;
     }
+
 }
 
 .glittery-gold {
@@ -390,22 +422,31 @@ nav > *:not(:first-child) {
 
 
 #cookieConsentBanner {
-    background-color: rgba(20,20,20,0.9);
-    color: white;
+    background-color: $dark_background_color;
+    color: $light_text_color;
     padding: 10px 20px;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
+    bottom: 0em;
+    border: $light_accent 1px solid;
+    border-radius: 1em;
+    width: 60%;
     text-align: center;
-    display: none; position: fixed; bottom: 0; width: 100%; background-color: #f4f4f4; padding: 10px; text-align: center;
+    display: none; 
+    text-align: center;
+
+    position: fixed;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
+
 #cookieConsentBanner button {
-    color: white;
-    background-color: green;
+    color: $light_text_color;
+    background-color: $button_color;
     border: none;
-    padding: 5px 10px;
+    padding: 1em 1.5em;
     margin: 10px;
     cursor: pointer;
+}
+#cookieConsentBanner button:hover {
+    background-color: $background_hover_color;
 }

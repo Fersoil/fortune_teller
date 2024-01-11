@@ -25,6 +25,8 @@ class Fortune(models.Model):
         ('Pisces', 'Pisces'),
     ]
     
+    id = models.AutoField(primary_key=True)  # Primary key
+
     title = models.CharField(max_length=100)  # The fortune title
     text = models.TextField(max_length=1000)  # The fortune text
     created_at = models.DateTimeField(auto_now_add=True)  # Date when the fortune was created
@@ -43,6 +45,7 @@ class UserProfile(models.Model):
             ('O', 'Other'),
         ]
 
+        id = models.AutoField(primary_key=True)  # Primary key
 
         user = models.OneToOneField(User, on_delete=models.CASCADE)
         activation_key = models.UUIDField(default=uuid.uuid4, editable=False)
@@ -52,6 +55,18 @@ class UserProfile(models.Model):
         created_at = models.DateTimeField(auto_now_add=True)
         sex = models.CharField(max_length=1, choices=SEX_CHOICES)  # Sex field
         zodiac_sign = models.CharField(max_length=20, choices=Fortune.ZODIAC_SIGNS, null=True, blank=True)
-        
+        is_admin = models.BooleanField(default=False)
+
         def __str__(self):
             return self.user.username
+
+
+class FortuneHistory(models.Model):
+    id = models.AutoField(primary_key=True)  # Primary key
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    fortune = models.ForeignKey(Fortune, on_delete=models.CASCADE)
+    viewed_on = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.user.username} viewed {self.fortune.title}"

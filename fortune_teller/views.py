@@ -1,6 +1,6 @@
 import logging
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Fortune, UserProfile
+from .models import Fortune, UserProfile, FortuneHistory
 from .forms import UserInfoForm, FortuneForm, RegisterForm
 
 import random
@@ -30,13 +30,14 @@ def index(request):
         logger.info("got user" + user_profile.user.__str__())
         zodiac_sign = user_profile.zodiac_sign
         sex = user_profile.sex
-        
+
+        fortunes_list = FortuneHistory.objects.filter(user=user_profile.user).values_list('fortune', flat=True)
+        fortunes = Fortune.objects.filter(zodiac_sign=zodiac_sign, sex=sex).exclude(id__in=fortunes_list)
+
     elif 'zodiac_sign' in request.COOKIES and 'sex' in request.COOKIES:
         zodiac_sign = request.COOKIES['zodiac_sign']
         sex = request.COOKIES['sex']
         logger.error("got user" + zodiac_sign)
-
-    if sex is not None and zodiac_sign is not None:  
         fortunes = Fortune.objects.filter(zodiac_sign=zodiac_sign, sex=sex)
     else:
         logger.info("no user nor zodiac")
@@ -44,6 +45,9 @@ def index(request):
     
     if fortunes:
         random_fortune = random.choice(fortunes)
+        if request.user.is_authenticated:
+            FortuneHistory.objects.create(user=request.user, fortune=random_fortune)
+
         context = {'fortune': random_fortune, "sex": sex, "zodiac_sign": zodiac_sign}
     else:
         context = {'fortune': None, "sex": sex, "zodiac_sign": zodiac_sign}
@@ -175,9 +179,17 @@ def user_info(request):
                 return redirect('index')  # Redirect after saving data
         else:
             form = UserInfoForm()
-
         return render(request, 'fortune_teller/set_user_info.html', {'form': form})
+
     
+@login_required
+def history(request):
+    if request.user.is_authenticated:
+        history = FortuneHistory.objects.filter(user=request.user).order_by('-viewed_on')
+        return render(request, 'fortune_teller/fortune_history.html', {'history': history})
+    else:
+        return redirect('login')
+
 
 def clear_cookies(request):
     if request.method == 'POST':
@@ -186,3 +198,13 @@ def clear_cookies(request):
         response.delete_cookie('zodiac_sign')  # Replace with your cookie name
         return response
     return redirect('user_info')  # Redirect if not POST method
+
+
+def view_fortune(request, fortune_id):
+    fortune = get_object_or_404(Fortune, pk=fortune_id)
+
+    # Record the viewing in the user's history if the user is logged in
+    if request.user.is_authenticated:
+        FortuneHistory.objects.create(user=request.user, fortune=fortune)
+
+    return render(request, 'fortune_teller/fortune_detail.html', {'fortune': fortune})

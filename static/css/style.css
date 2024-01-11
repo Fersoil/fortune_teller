@@ -187,9 +187,12 @@ header {
   border-radius: 4px;
   display: inline-block; }
 
-.error {
-  color: red;
-  font-size: 0.8em; }
+.error-message {
+  display: block; }
+
+.form-errors {
+  margin-bottom: 1em;
+  color: red; }
 
 table {
   width: 100%;
@@ -215,7 +218,9 @@ nav {
     margin: 0;
     padding: 0;
     overflow: hidden;
-    width: 100%; }
+    width: 100%;
+    flex-wrap: wrap;
+    transition: max-height 0.5s ease-in-out; }
   nav li {
     display: inline;
     border-left: 1px solid #f4f4f4; }
@@ -234,11 +239,26 @@ nav {
     float: left;
     border: none;
     font-weight: bold; }
-
-nav > *:not(:first-child) {
+  nav .navbar-toggle {
+    display: none;
+    cursor: pointer;
+    padding: 1em;
+    font-size: 1.5em;
+    color: #f4f4f4; }
+    @media (max-width: 768px) {
+      nav .navbar-toggle {
+        display: block; } }
+  @media (max-width: 768px) {
+    nav ul {
+      flex-direction: column;
+      display: none; }
+    nav li {
+      border: none;
+      width: 100%; } }
+nav > ul > *:not(:first-child) {
   float: right; }
 
-@media (max-width: 768px) {
+@media screen and (max-width: 768px) {
   footer {
     min-height: 2em; }
   .account-box {
@@ -262,28 +282,29 @@ nav > *:not(:first-child) {
     background-position: 0% 50%; } }
 
 #cookieConsentBanner {
-  background-color: rgba(20, 20, 20, 0.9);
-  color: white;
+  background-color: #333;
+  color: #f4f4f4;
   padding: 10px 20px;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
+  bottom: 0em;
+  border: #bb4aca 1px solid;
+  border-radius: 1em;
+  width: 60%;
   text-align: center;
   display: none;
+  text-align: center;
   position: fixed;
-  bottom: 0;
-  width: 100%;
-  background-color: #f4f4f4;
-  padding: 10px;
-  text-align: center; }
+  left: 50%;
+  transform: translate(-50%, -50%); }
 
 #cookieConsentBanner button {
-  color: white;
-  background-color: green;
+  color: #f4f4f4;
+  background-color: #952a97;
   border: none;
-  padding: 5px 10px;
+  padding: 1em 1.5em;
   margin: 10px;
   cursor: pointer; }
+
+#cookieConsentBanner button:hover {
+  background-color: #555555; }
 
 /*# sourceMappingURL=style.css.map */
