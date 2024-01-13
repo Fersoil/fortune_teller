@@ -44,7 +44,6 @@ class RegisterForm(UserCreationForm):
         return email
 
 
-
 class UserInfoForm(forms.Form):
     sex = forms.ChoiceField(choices=Fortune.SEX_CHOICES)
     zodiac_sign = forms.ChoiceField(choices=Fortune.ZODIAC_SIGNS)

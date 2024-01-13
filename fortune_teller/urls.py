@@ -33,5 +33,4 @@ urlpatterns = [
     path('info/', views.user_info, name='user_info'),
     path("clear_cookies/", views.clear_cookies, name="clear_cookies"),
     path('fortunes/<int:fortune_id>/', views.view_fortune, name='view_fortune'),
-
 ]
