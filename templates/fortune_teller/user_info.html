@@ -9,9 +9,14 @@
     <p>Zodiac sign: {{ zodiac_sign }}</p>
     <p>Sex: {{ sex }}</p>
 
+    {% if auth_user is True %}
+    <button type="submit"> <a href="{% url 'logout' %}">Logout</a></button>
+
+    {% else %}
     <form action="{% url 'clear_cookies' %}" method="post">
       {% csrf_token %}
       <button type="submit">Delete your identity</button>
   </form>
+  {% endif %}
 </div>
 {% endblock %}

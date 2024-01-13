@@ -1,6 +1,7 @@
 from django import forms
 from .models import Fortune
 from django.contrib.auth.forms import UserCreationForm
+from django.core.exceptions import ValidationError
 from django.contrib.auth.models import User
 from django import forms
 
@@ -28,6 +29,19 @@ class RegisterForm(UserCreationForm):
     class Meta:
         model = User
         fields = ['username', 'email', 'password1', 'password2']
+
+    
+    def clean_username(self):
+        username = self.cleaned_data.get("username")
+        if User.objects.filter(username=username).exists():
+            raise ValidationError("A user with that username already exists.")
+        return username
+
+    def clean_email(self):
+        email = self.cleaned_data.get("email")
+        if User.objects.filter(email=email).exists():
+            raise ValidationError("This email is already in use.")
+        return email
 
 
 

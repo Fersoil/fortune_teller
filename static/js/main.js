@@ -14,3 +14,19 @@ document.addEventListener('DOMContentLoaded', () => {
         consentBanner.style.display = 'none';
     });
 });
+
+
+document.addEventListener('DOMContentLoaded', function () {
+    const toggle = document.querySelector('.navbar-toggle');
+    const menu = document.querySelector('.navbar-menu');
+
+    toggle.addEventListener('click', function () {
+        menu.style.display = menu.style.display === 'none' ? 'flex' : 'none';
+    });
+
+    window.addEventListener('resize', function () {
+        if (window.innerWidth > 768) {
+            menu.style.display = 'inline';
+        } 
+    });
+});

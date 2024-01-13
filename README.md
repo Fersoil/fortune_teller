@@ -1,2 +1,2 @@
-# repository for WAP project - fortune teller
+# Fortune teller app
 
