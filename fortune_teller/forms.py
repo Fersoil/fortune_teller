@@ -4,6 +4,8 @@ from django.contrib.auth.forms import UserCreationForm
 from django.core.exceptions import ValidationError
 from django.contrib.auth.models import User
 from django import forms
+from django.contrib.auth.forms import SetPasswordForm
+
 
 
 class FortuneForm(forms.ModelForm):
@@ -47,3 +49,17 @@ class RegisterForm(UserCreationForm):
 class UserInfoForm(forms.Form):
     sex = forms.ChoiceField(choices=Fortune.SEX_CHOICES)
     zodiac_sign = forms.ChoiceField(choices=Fortune.ZODIAC_SIGNS)
+
+
+class UserSetPasswordForm(SetPasswordForm):
+    def __init__(self, *args, **kwargs):
+        super(UserSetPasswordForm, self).__init__(*args, **kwargs)
+
+    new_password1 = forms.CharField(label='Password', widget=forms.PasswordInput(attrs={
+        'class': 'form-control',
+        #'placeholder': 'Password',
+    }))
+    new_password2 = forms.CharField(label='Confirm Password', widget=forms.PasswordInput(attrs={
+        'class': 'form-control',
+        #'placeholder': 'Confirm Password',
+    }))

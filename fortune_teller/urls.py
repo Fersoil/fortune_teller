@@ -3,6 +3,8 @@ from . import views
 from django.contrib.auth import views as auth_views
 from .views import register  # Import your register view
 from django.urls import path, include # new
+from .forms import UserSetPasswordForm
+from django.urls import reverse_lazy
 
 
 
@@ -20,11 +22,13 @@ urlpatterns = [
     path('accounts/logout/', auth_views.LogoutView.as_view(next_page='/'), name='logout'),
     path('accounts/password_reset/', auth_views.PasswordResetView.as_view(template_name='fortune_teller/account/password_reset.html'), name='password_reset'),
     path('accounts/password_reset/done/', auth_views.PasswordResetDoneView.as_view(template_name='fortune_teller/account/password_reset_done.html'), name='password_reset_done'),
-    path('accounts/reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(template_name='fortune_teller/account/password_reset_confirm.html'), name='password_reset_confirm'),
-    path('accounts/reset/done/', auth_views.PasswordResetCompleteView.as_view(template_name='fortune_teller/account/password_reset_complete.html'), name='password_reset_complete'),
+    path('accounts/password_reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(template_name='fortune_teller/account/password_reset_confirm.html', success_url=reverse_lazy('password_reset_complete')), name='password_reset_confirm'),
+    path('reset/<uidb64>/<token>', auth_views.PasswordResetConfirmView.as_view(), name ='password_reset_confirm'),
+
+    path('accounts/password_reset/complete/', auth_views.PasswordResetCompleteView.as_view(template_name='fortune_teller/account/password_reset_complete.html'), name='password_reset_complete'),
 
 
-    path("accounts/", include("django.contrib.auth.urls")),
+    #path("accounts/", include("django.contrib.auth.urls")),
     path('add_fortune/', views.add_fortune, name='add_fortune'),
     path('fortunes/', views.view_fortunes, name='view_fortunes'),
     path('fortunes/edit/<int:fortune_id>/', views.edit_fortune, name='edit_fortune'),

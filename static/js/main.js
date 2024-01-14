@@ -30,3 +30,19 @@ document.addEventListener('DOMContentLoaded', function () {
         } 
     });
 });
+
+function validatePassword() {
+    var password = document.getElementById("id_password1").value;
+    var message = "";
+
+    if (password.length < 8) {
+        message = "Password must be at least 8 characters";
+    } else if (!password.match(/\d/)) {
+        message = "Password must contain a number";
+    } 
+
+    document.getElementById("passwordMessage").innerText = message;
+}
+
+
+document.getElementById("id_password1").addEventListener("keyup", validatePassword);

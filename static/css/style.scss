@@ -361,13 +361,13 @@ nav {
         font-size: 1.5em;
         color: $light_text_color;
 
-        @media (max-width: 768px) {
+        @media (max-width: $breakpoint-mobile) {
             display: block;
         }
     }
 
     
-    @media (max-width: 768px) {
+    @media (max-width: $breakpoint-mobile) {
 
         ul {
             flex-direction: column;

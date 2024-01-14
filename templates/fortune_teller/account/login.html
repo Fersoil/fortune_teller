@@ -2,15 +2,20 @@
 {% extends 'fortune_teller/account/account_generic.html' %}
 
 {% block title %} Login {% endblock %}
+{% load static %}
 
+<script src="{% static 'js/main.js' %}"></script>
 
 {% block account_content %}
   <h2>login here, <br>dear fortune teller</h2>
   <form method="post">
     {% csrf_token %}
     <fieldset>
-      
+      {% if  form.username.value is not None %}
       <input type="text" name="username" placeholder=" " id="id_username"  value="{{ form.username.value }}">
+      {% else %}
+      <input type="text" name="username" placeholder=" " id="id_username">
+      {% endif %}
       <label for="id_username">Username:</label>
       {% for error in form.username.errors %}
         <span class="error">{{ error }}</span>
