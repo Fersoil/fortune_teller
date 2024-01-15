@@ -1,23 +1,33 @@
 from django.test import TestCase
-from .forms import RegisterForm
+from .forms import RegisterForm, FortuneForm, ProfileForm
 from django.test import TestCase
 from django.contrib.auth.models import User
 from .models import Fortune
-from .forms import FortuneForm
 
 class RegisterFormTest(TestCase):
 
     def test_valid_register_form(self):
-        data = {'username': 'newuser', 'email': 'user@example.com', 'password1': 'dfgjkldfsg345', 'password2': 'dfgjkldfsg345'}
+        data = {'username': 'newuser', 'email': 'user@example.com', 'password1': 'Dfgjkldfsg345', 'password2': 'Dfgjkldfsg345'}
         form = RegisterForm(data)
         self.assertTrue(form.is_valid())
 
     def test_invalid_register_form(self):
-        data = {'username': 'newuser', 'email': 'user@example.com', 'password1': 'dfgjkldfsg345', 'password2': 'different'}
+        data = {'username': 'newuser', 'email': 'user@example.com', 'password1': 'Dfgjkldfsg345', 'password2': 'different'}
         form = RegisterForm(data)
         self.assertFalse(form.is_valid())
 
 
+class UserProfileTest(TestCase):
+
+    def test_valid_profile_form(self):
+        data = {"zodiac_sign": "Aries", "sex": "M"}
+        form = ProfileForm(data)
+        self.assertTrue(form.is_valid())
+    
+    def test_invalid_profile_form(self):
+        data = {"zodiac_sign": "surely_not_a_zodiac", "sex": "none"}
+        form = ProfileForm(data)
+        self.assertFalse(form.is_valid())
 
 class FortuneModelTest(TestCase):
 
