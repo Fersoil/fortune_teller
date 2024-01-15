@@ -1,7 +1,7 @@
 import logging
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Fortune, UserProfile, FortuneHistory
-from .forms import UserInfoForm, FortuneForm, RegisterForm
+from .forms import ProfileForm, FortuneForm, RegisterForm, ProfileForm
 
 import random
 from django.contrib.auth.decorators import login_required
@@ -63,14 +63,16 @@ def user_fortunes(request):
 
 def register(request):
     if request.method == 'POST':
-        form = RegisterForm(request.POST)
-        if form.is_valid():
-            user = form.save(commit=False)
+        user_form = RegisterForm(request.POST)
+        profile_form = ProfileForm(request.POST)
+        if user_form.is_valid() and profile_form.is_valid():
+            user = user_form.save(commit=False)
             user.is_active = False  # Deactivate account until it is confirmed
             user.save()
 
             # Create UserProfile
-            profile = UserProfile(user=user)
+            profile = profile_form.save(commit=False)
+            profile.user = user
             profile.save()
 
             # Send activation email
@@ -86,8 +88,9 @@ def register(request):
 
             return redirect('account_activation_sent')
     else:
-        form = RegisterForm()
-    return render(request, 'fortune_teller/account/register.html', {'form': form})
+        user_form = RegisterForm()
+        profile_form = ProfileForm()
+    return render(request, 'fortune_teller/account/register.html', {'user_form': user_form, "profile_form": profile_form})
     
 
 def register_done(request):
@@ -149,15 +152,7 @@ def edit_fortune(request, fortune_id):
 
 
 def user_info(request):
-
-    if 'zodiac_sign' in request.COOKIES and 'sex' in request.COOKIES:
-        zodiac_sign =request.COOKIES["zodiac_sign"]
-        sex = request.COOKIES["sex"]
-
-        context = {"zodiac_sign": zodiac_sign, "sex": sex, "auth_user": False}
-
-        return render(request, "fortune_teller/user_info.html", context)
-    elif request.user.is_authenticated:
+    if request.user.is_authenticated:
         user_profile = get_object_or_404(UserProfile, user=request.user)
         
         zodiac_sign = user_profile.zodiac_sign
@@ -166,9 +161,16 @@ def user_info(request):
         context = {"zodiac_sign": zodiac_sign, "sex": sex, "auth_user": True}
 
         return render(request, 'fortune_teller/user_info.html', context)
+    elif 'zodiac_sign' in request.COOKIES and 'sex' in request.COOKIES:
+        zodiac_sign =request.COOKIES["zodiac_sign"]
+        sex = request.COOKIES["sex"]
+
+        context = {"zodiac_sign": zodiac_sign, "sex": sex, "auth_user": False}
+
+        return render(request, "fortune_teller/user_info.html", context)
     else:
         if request.method == 'POST':
-            form = UserInfoForm(request.POST)
+            form = ProfileForm(request.POST)
             if form.is_valid():
                 if request.user.is_authenticated:
                     # Save in user profile for logged-in users
@@ -184,7 +186,7 @@ def user_info(request):
                     return response
                 return redirect('index')  # Redirect after saving data
         else:
-            form = UserInfoForm()
+            form = ProfileForm()
         return render(request, 'fortune_teller/set_user_info.html', {'form': form})
 
     

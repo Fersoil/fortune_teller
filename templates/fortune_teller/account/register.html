@@ -7,7 +7,7 @@
     {% csrf_token %}
 
 
-    {% for field in form %}
+    {% for field in user_form %}
       <fieldset>
         
         {{ field }} 
@@ -24,6 +24,15 @@
     {% endfor %}
 
     <div id="passwordMessage" style="color: red;"></div>
+
+
+    {% for field in profile_form %}
+    <fieldset>
+      
+      {{ field }} 
+      {{ field.label_tag }}
+    </fieldset>
+  {% endfor %}
 
     <button type="submit"><i>Register</i></button>
     <p>

@@ -1,5 +1,5 @@
 from django import forms
-from .models import Fortune
+from .models import Fortune, UserProfile
 from django.contrib.auth.forms import UserCreationForm
 from django.core.exceptions import ValidationError
 from django.contrib.auth.models import User
@@ -44,12 +44,12 @@ class RegisterForm(UserCreationForm):
         if User.objects.filter(email=email).exists():
             raise ValidationError("This email is already in use.")
         return email
+    
 
-
-class UserInfoForm(forms.Form):
-    sex = forms.ChoiceField(choices=Fortune.SEX_CHOICES)
-    zodiac_sign = forms.ChoiceField(choices=Fortune.ZODIAC_SIGNS)
-
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = UserProfile
+        fields = ['sex', 'zodiac_sign']
 
 class UserSetPasswordForm(SetPasswordForm):
     def __init__(self, *args, **kwargs):
